@@ -41,7 +41,8 @@ function looksLikeBot(s) {
   const t = norm(s);
 
   // Solo nos interesan letras y simbolos: los digitos y espacios se descartan
-  // porque los telefonos legitimos (300 000 0000) repiten digitos y NO son spam.
+  // porque los telefonos legitimos (+57 321 621 4277) pueden repetir digitos
+  // y NO son spam.
   const sinDigitos = t.replace(/[\d\s]/g, '');
   if (/(.)\1{7,}/.test(sinDigitos)) return true;
 
