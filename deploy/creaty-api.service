@@ -1,0 +1,34 @@
+[Unit]
+Description=Creaty Site — API del formulario de contacto
+Documentation=file:///home/wilsonricardoeg/creaty-site/README.md
+After=network-online.target mysql-docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=wilsonricardoeg
+Group=wilsonricardoeg
+WorkingDirectory=/home/wilsonricardoeg/creaty-site/api
+EnvironmentFile=/home/wilsonricardoeg/creaty-site/api/.env
+ExecStart=/usr/bin/node src/server.js
+
+Restart=always
+RestartSec=5
+# Si falla 3 veces en 5 minutos, deja de reintentar para no bucear en logs.
+StartLimitBurst=3
+StartLimitIntervalSec=300
+
+# Endurecimiento basico
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+# La API solo lee .env y escribe en nada: read-only para /home esta bien.
+ReadWritePaths=/home/wilsonricardoeg/creaty-site/api
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=creaty-api
+
+[Install]
+WantedBy=multi-user.target

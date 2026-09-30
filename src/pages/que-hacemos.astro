@@ -1,0 +1,274 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+
+const areas = [
+  {
+    id: "sitios-web",
+    eyebrow: "01 · Sitios web",
+    title: "Sitios web rápidos, accesibles y listos para SEO",
+    intro:
+      "Desde una landing de alta conversión hasta un e‑commerce completo. Trabajamos con Astro, Next.js y stacks headless cuando el proyecto lo pide, sin atarnos a una sola herramienta.",
+    bullets: [
+      "Landing pages y sitios corporativos",
+      "Tiendas online (Shopify, WooCommerce, headless)",
+      "Migraciones desde WordPress, Wix o sitios legacy",
+      "SEO técnico, Core Web Vitals y accesibilidad WCAG",
+      "Integraciones: pasarelas de pago, CRMs, WhatsApp, Mailchimp",
+    ],
+    icon: "code" as const,
+  },
+  {
+    id: "vps-infra",
+    eyebrow: "02 · VPS e infraestructura",
+    title: "Servidores Linux administrados, sin sorpresas",
+    intro:
+      "Configuramos, aseguramos y operamos VPS en cualquier proveedor (Hetzner, DigitalOcean, Vultr, AWS Lightsail). Tú te enfocas en el negocio; nosotros en uptime.",
+    bullets: [
+      "Hardening inicial: SSH, firewall, fail2ban, kernel, sysctl",
+      "Docker, docker‑compose y despliegues zero‑downtime",
+      "Backups automatizados, snapshots y pruebas de restore",
+      "Monitoreo con Prometheus, Grafana, UptimeRobot",
+      "Migraciones entre proveedores sin downtime",
+    ],
+    icon: "server" as const,
+  },
+  {
+    id: "cloudflare",
+    eyebrow: "03 · Cloudflare",
+    title: "Cloudflare end‑to‑end, bien configurado",
+    intro:
+      "Cloudflare parece simple pero tiene decenas de productos mal configurados en producción. Nosotros lo dejamos afinado, con observabilidad y costos controlados.",
+    bullets: [
+      "DNS, CDN, cache rules, cache reserve y tiered cache",
+      "Workers y Pages para aplicaciones edge",
+      "R2 para object storage, KV para configuración",
+      "Tunnels para exponer servicios sin abrir puertos",
+      "WAF, rate limiting, bot protection y mTLS para Zero Trust",
+      "Email Routing y DNS records de entregabilidad (SPF, DKIM, DMARC)",
+    ],
+    icon: "cloud" as const,
+  },
+  {
+    id: "hardening",
+    eyebrow: "04 · Hardening & ciberseguridad",
+    title: "Seguridad práctica, no checklists decorativos",
+    intro:
+      "Aplicamos CIS Benchmarks, OWASP y experiencia de respuesta a incidentes para que tu stack resista ataques reales — no solo auditorías.",
+    bullets: [
+      "Hardening SSH, kernel, servicios y bases de datos",
+      "TLS estricto, HSTS, OCSP stapling, cabeceras CSP/HSTS",
+      "WAF, IDS/IPS, escaneos con Nuclei y Nikto",
+      "Gestión de secretos (Vault, SOPS, age) y rotación de claves",
+      "Backups cifrados con restore probado, runbooks y respuesta 24/7",
+    ],
+    icon: "shield" as const,
+  },
+];
+
+const paquetes = [
+  {
+    name: "Lanzamiento",
+    price: "Desde $X COP",
+    description: "Para emprendedores que necesitan un sitio serio, rápido y bien posicionado.",
+    items: [
+      "Landing o sitio de hasta 5 secciones",
+      "Diseño responsivo y accesible",
+      "Despliegue en Cloudflare Pages",
+      "SEO técnico inicial y analítica",
+      "Soporte por 30 días",
+    ],
+    highlight: false,
+  },
+  {
+    name: "Crecimiento",
+    price: "Mensual",
+    description: "Para negocios que ya venden online y quieren escalar con infraestructura sólida.",
+    items: [
+      "Sitio o e‑commerce completo",
+      "VPS administrado con backups",
+      "Cloudflare CDN + WAF configurado",
+      "Monitoreo y reportes mensuales",
+      "Mejoras continuas con SLA",
+    ],
+    highlight: true,
+  },
+  {
+    name: "Empresa",
+    price: "A medida",
+    description: "Infraestructura crítica, hardening profundo y soporte dedicado.",
+    items: [
+      "Auditoría de seguridad inicial",
+      "Hardening completo (CIS / OWASP)",
+      "Cloudflare Zero Trust para el equipo",
+      "Runbooks de respuesta a incidentes",
+      "SLA con tiempo de respuesta < 1h",
+    ],
+    highlight: false,
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Trabajan con clientes fuera de Antioquia?",
+    a: "Sí. Trabajamos 100% remoto con clientes en toda Colombia y LATAM. Las reuniones son por Meet o Zoom y la comunicación del día a día por WhatsApp y correo.",
+  },
+  {
+    q: "¿Cuánto tarda un sitio web típico?",
+    a: "Una landing page suele estar lista en 2–3 semanas. Un sitio corporativo completo, entre 4 y 8. Proyectos más grandes se dividen en sprints con entregables quincenales.",
+  },
+  {
+    q: "¿Puedo traer mi propio hosting o dominio?",
+    a: "Por supuesto. Trabajamos con cualquier proveedor y migramos lo necesario. Eso sí, solemos recomendar Cloudflare como capa de seguridad y rendimiento — incluso si el origen vive en otro lado.",
+  },
+  {
+    q: "¿Qué pasa si tengo una emergencia en mi servidor?",
+    a: "Los planes Crecimiento y Empresa incluyen monitoreo 24/7 y respuesta a incidentes. Si ya tienes una emergencia, escríbenos y vemos disponibilidad inmediata.",
+  },
+  {
+    q: "¿Hacen sitios en WordPress?",
+    a: "Podemos, pero solemos recomendar alternativas más rápidas (Astro, Next.js, headless). Si necesitas WordPress por una razón específica (WooCommerce, editor del cliente), lo trabajamos bien.",
+  },
+];
+---
+
+<BaseLayout
+  title="Qué hacemos — Servicios de desarrollo, infraestructura y seguridad"
+  description="Servicios de Creaty Site: sitios web rápidos, administración de VPS, configuración profesional de Cloudflare, hardening y ciberseguridad para PYMEs."
+>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Qué hacemos</span>
+      <h1>
+        Cuatro áreas, <span class="gradient-text">un solo equipo</span> responsable de punta a punta.
+      </h1>
+      <p class="lead">
+        Web, servidores, Cloudflare y ciberseguridad. Si toca algo técnico en tu
+        negocio, probablemente lo hacemos — y si no, te decimos con quién resolverlo.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="display:flex; flex-direction:column; gap:4rem;">
+      {
+        areas.map((a) => (
+          <article id={a.id} class="card card--feature" style="scroll-margin-top:100px;">
+            <div class="hero__grid" style="gap:2.5rem; align-items:start;">
+              <div>
+                <span class="eyebrow">{a.eyebrow}</span>
+                <h2 style="font-size:1.9rem;">{a.title}</h2>
+                <p class="lead">{a.intro}</p>
+                <ul style="list-style:none; padding:0; margin:1.25rem 0 0; display:grid; gap:0.5rem;">
+                  {a.bullets.map((b) => (
+                    <li style="display:flex; gap:0.6rem; align-items:flex-start; color:var(--c-text-dim);">
+                      <span style="color:var(--c-accent); margin-top:0.2rem;">
+                        <Icon name="check" size={18} />
+                      </span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a class="btn btn--link mt-2" href="/contactanos">Cotizar este servicio</a>
+              </div>
+              <div
+                class="hero__card"
+                style="display:flex; align-items:center; justify-content:center; min-height:200px;"
+                aria-hidden="true"
+              >
+                <div class="hero__card-glow" />
+                <div class="card__icon" style="width:96px; height:96px;">
+                  <Icon name={a.icon} size={48} />
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <header class="section__head section__head--center">
+        <span class="eyebrow">Planes</span>
+        <h2>Modalidades que <span class="gradient-text">escalan</span> contigo</h2>
+        <p class="lead" style="margin-inline:auto;">
+          Elige un punto de partida. Ajustamos alcance, plazos y precio según tu realidad.
+        </p>
+      </header>
+
+      <div class="grid-3">
+        {
+          paquetes.map((p) => (
+            <article
+              class="card card--feature"
+              style={p.highlight
+                ? "border-color: var(--c-border-strong); box-shadow: var(--shadow-lg);"
+                : ""}
+            >
+              {p.highlight && (
+                <span
+                  class="post-card__tag"
+                  style="position:absolute; top:1.25rem; right:1.25rem;"
+                >
+                  Más popular
+                </span>
+              )}
+              <h3>{p.name}</h3>
+              <p style="font-size:1.4rem; font-weight:700; color:var(--c-text); margin:0.25rem 0 0.75rem;">
+                {p.price}
+              </p>
+              <p>{p.description}</p>
+              <ul style="list-style:none; padding:0; margin:1rem 0 0; display:grid; gap:0.5rem;">
+                {p.items.map((it) => (
+                  <li style="display:flex; gap:0.6rem; align-items:flex-start; color:var(--c-text-dim); font-size:0.95rem;">
+                    <span style="color:var(--c-accent); margin-top:0.15rem;">
+                      <Icon name="check" size={16} />
+                    </span>
+                    <span>{it}</span>
+                  </li>
+                ))}
+              </ul>
+              <a class="btn btn--primary mt-2" href="/contactanos">Empezar</a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section__head section__head--center">
+        <span class="eyebrow">FAQ</span>
+        <h2>Preguntas <span class="gradient-text">frecuentes</span></h2>
+      </header>
+
+      <div class="faq" style="max-width:760px; margin-inline:auto;">
+        {
+          faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="cta-strip">
+        <h2 class="mb-0">¿No estás seguro de qué necesitas?</h2>
+        <p class="lead" style="margin-inline:auto; margin-top:0.75rem;">
+          Reservamos 30 minutos gratis para revisar tu caso y proponerte el camino más corto.
+        </p>
+        <div class="hero__actions" style="justify-content:center;">
+          <a class="btn btn--primary" href="/contactanos">Agendar diagnóstico <Icon name="arrow-right" size={18} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

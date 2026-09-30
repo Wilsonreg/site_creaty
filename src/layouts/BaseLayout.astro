@@ -1,0 +1,79 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  recaptcha?: boolean;
+}
+
+const {
+  title,
+  description = "Creaty Site — Agencia de desarrollo web en Copacabana, Antioquia. Sitios rápidos, infraestructura, Cloudflare y ciberseguridad para pequeños y medianos negocios.",
+  image = "/og.png",
+  type = "website",
+  noindex = false,
+  recaptcha = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://site.creaty.fun").toString();
+const siteName = "Creaty Site";
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const RECAPTCHA_SITE_KEY = "6LcjINgtAAAAAFf587_EcXsvW3mb4BBVpXNKBn1K";
+---
+
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#06070d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonical} />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site ?? "https://site.creaty.fun").toString()} />
+    <meta property="og:locale" content="es_CO" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site ?? "https://site.creaty.fun").toString()} />
+
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+
+    {recaptcha && (
+        <script
+          is:inline
+          src="https://www.google.com/recaptcha/api.js?render=6LcjINgtAAAAAFf587_EcXsvW3mb4BBVpXNKBn1K"
+          async
+          defer
+        ></script>
+      )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

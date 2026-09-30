@@ -1,0 +1,62 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const links = [
+  { href: "/", label: "Inicio" },
+  { href: "/quienes-somos", label: "Quiénes somos" },
+  { href: "/que-hacemos", label: "Qué hacemos" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contactanos", label: "Contáctanos" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
+---
+
+<header class="header">
+  <div class="container">
+    <nav class="nav" aria-label="Principal">
+      <a class="brand" href="/" aria-label="Creaty Site — inicio">
+        <img class="brand__logo" src="/images/creaty-logo.png" alt="Creaty Site" width="137" height="48" />
+      </a>
+
+      <ul class="nav__links" role="list">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="nav__cta">
+        <a class="btn btn--primary" href="/contactanos">Cotizar proyecto</a>
+        <button
+          class="nav__toggle"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          data-nav-toggle
+        >
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  const nav = toggle?.closest(".nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("nav__menu-open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    });
+  }
+</script>

@@ -1,0 +1,63 @@
+---
+// Inline SVG icon set — 1 file, 0 requests, styled via currentColor.
+export interface Props {
+  name:
+    | "code"
+    | "cloud"
+    | "shield"
+    | "server"
+    | "bolt"
+    | "rocket"
+    | "chart"
+    | "globe"
+    | "lock"
+    | "wrench"
+    | "arrow-right"
+    | "check"
+    | "search"
+    | "mail"
+    | "phone"
+    | "map"
+    | "sparkle"
+    | "terminal";
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 20, class: className = "" } = Astro.props;
+
+const paths: Record<Props["name"], string> = {
+  code: `<path d="M9 18l-6-6 6-6"/><path d="M15 6l6 6-6 6"/>`,
+  cloud: `<path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.7 1.7A4 4 0 0 0 6 19h11.5z"/>`,
+  shield: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+  server: `<rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><circle cx="7" cy="7" r="1"/><circle cx="7" cy="17" r="1"/>`,
+  bolt: `<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>`,
+  rocket: `<path d="M5 13c-1 3 1 6 4 7M14 3a7 7 0 0 1 7 7c-2 1-4 2-6 2l-3-3c0-2 1-4 2-6z"/><path d="M9 11l-2 2c-1 1-1 3 0 4s3 1 4 0l2-2"/><path d="M12 15l-4 4"/>`,
+  chart: `<path d="M3 3v18h18"/><path d="M7 15l4-4 4 4 5-7"/>`,
+  globe: `<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>`,
+  lock: `<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>`,
+  wrench: `<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4 2.6-2.6z"/>`,
+  sparkle: `<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>`,
+  terminal: `<path d="M4 17l5-5-5-5"/><path d="M12 19h8"/>`,
+  "arrow-right": `<path d="M5 12h14M13 6l6 6-6 6"/>`,
+  check: `<path d="M4 12l5 5L20 6"/>`,
+  search: `<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>`,
+  mail: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>`,
+  phone: `<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>`,
+  map: `<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>`,
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  class={className}
+  set:html={paths[name]}
+/>

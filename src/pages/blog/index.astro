@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<BaseLayout
+  title="Blog — Creaty Site"
+  description="Rendimiento web, Cloudflare, ciberseguridad y operación de servidores. Notas técnicas del equipo de Creaty Site."
+>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+      <h1>
+        Notas sobre <span class="gradient-text">rendimiento</span>, <span class="gradient-text">Cloudflare</span> y <span class="gradient-text">seguridad</span>.
+      </h1>
+      <p class="lead">
+        Lo que aprendemos administrando sitios y servidores reales. Sin paja, con
+        comandos que puedes copiar y pegar.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p>Aún no hay publicaciones. Vuelve pronto.</p>
+      ) : (
+        <div class="post-list">
+          {
+            posts.map((p) => (
+              <article class="post-card">
+                <div class="post-card__body">
+                  <div class="post-card__meta">
+                    <span>{fmt(p.data.pubDate)}</span>
+                    <span>·</span>
+                    <span class="post-card__tag">{p.data.tag}</span>
+                  </div>
+                  <h3>{p.data.title}</h3>
+                  <p class="post-card__excerpt">{p.data.description}</p>
+                  <div class="post-card__cta">
+                    <a class="btn btn--link" href={`/blog/${p.id}`}>
+                      Leer artículo
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      )}
+
+      <div class="text-center mt-3">
+        <a class="btn btn--ghost" href="/contactanos">
+          <Icon name="mail" size={18} />
+          Suscribirme a nuevas notas
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

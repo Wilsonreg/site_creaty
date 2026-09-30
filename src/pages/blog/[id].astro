@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+>
+  <article class="section">
+    <div class="container">
+      <header class="section__head" style="max-width:780px; margin-inline:auto;">
+        <a class="btn btn--link" href="/blog" style="margin-bottom:1rem; display:inline-flex;">
+          <span style="transform:rotate(180deg); display:inline-block;"><Icon name="arrow-right" size={16} /></span>
+          Volver al blog
+        </a>
+        <div class="post-card__meta" style="margin-bottom:0.75rem;">
+          <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+          <span>·</span>
+          <span class="post-card__tag">{post.data.tag}</span>
+          <span>·</span>
+          <span>{post.data.author}</span>
+        </div>
+        <h1>{post.data.title}</h1>
+        <p class="lead">{post.data.description}</p>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <div class="prose mt-3">
+        <hr style="border:0; border-top:1px solid var(--c-border);" />
+        <p>¿Te resultó útil? <a href="/contactanos">Cuéntanos</a> si quieres que profundicemos en algún tema.</p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

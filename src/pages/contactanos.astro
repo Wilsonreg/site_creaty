@@ -1,0 +1,295 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+
+const intereses = [
+  { value: "sitio-web", label: "Sitio web / landing" },
+  { value: "ecommerce", label: "Tienda online / e‑commerce" },
+  { value: "vps-infra", label: "Administrar mi VPS / infraestructura" },
+  { value: "cloudflare", label: "Configurar Cloudflare" },
+  { value: "hardening", label: "Hardening y ciberseguridad" },
+  { value: "otro", label: "Otro" },
+];
+---
+
+<BaseLayout
+  title="Contáctanos — Creaty Site"
+  description="Hablemos de tu proyecto. Respondemos en menos de 24 horas con una propuesta honesta y un precio cerrado."
+  recaptcha
+>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Contáctanos</span>
+      <h1>
+        Cuéntanos tu <span class="gradient-text">proyecto</span>.
+        Respondemos en menos de 24 h.
+      </h1>
+      <p class="lead">
+        Sin formularios eternos, sin calls de 1 hora, sin propuestas infladas.
+        Un correo corto y volvemos con próximos pasos concretos.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="hero__grid" style="gap:3rem; align-items:start;">
+        <!-- FORM -->
+        <form
+          class="card card--feature form"
+          id="contact-form"
+          novalidate
+          aria-label="Formulario de contacto"
+        >
+          <div class="form__row">
+            <div>
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" autocomplete="name" required minlength="2" />
+              <p class="form__error" data-error-for="nombre">Ingresa tu nombre.</p>
+            </div>
+            <div>
+              <label for="email">Correo</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+              <p class="form__error" data-error-for="email">Correo inválido.</p>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div>
+              <label for="telefono">Teléfono / WhatsApp (opcional)</label>
+              <input id="telefono" name="telefono" type="tel" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="interes">¿Qué te interesa?</label>
+              <select id="interes" name="interes" required>
+                <option value="">Selecciona una opción</option>
+                {
+                  intereses.map((i) => (
+                    <option value={i.value}>{i.label}</option>
+                  ))
+                }
+              </select>
+              <p class="form__error" data-error-for="interes">Elige una opción.</p>
+            </div>
+          </div>
+
+          <div>
+            <label for="mensaje">Cuéntanos un poco</label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              required
+              minlength="20"
+              placeholder="¿Qué quieres lograr? ¿Hay fechas, presupuesto o stack en mente?"
+            ></textarea>
+            <p class="form__help">Mínimo 20 caracteres. No nos gusta el spam ni lo practicamos.</p>
+            <p class="form__error" data-error-for="mensaje">Cuéntanos un poco más (≥ 20 caracteres).</p>
+          </div>
+
+<!-- Honeypot anti-spam -->
+          <div aria-hidden="true" style="position:absolute; left:-9999px; height:0; overflow:hidden;">
+            <label for="website">No llenar este campo</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- reCAPTCHA v3: invisible. El script (cargado en BaseLayout) genera
+               el token automaticamente al enviar el formulario; no hay widget. -->
+          <p class="form__help" style="margin-top:0.5rem;">
+            Este formulario está protegido por reCAPTCHA (análisis invisible de comportamiento).
+            Google aplica su <a href="https://policies.google.com/privacy" rel="noopener noreferrer">política de privacidad</a> y <a href="https://policies.google.com/terms" rel="noopener noreferrer">términos</a>.
+            <span data-captcha-error></span>
+          </p>
+
+          <div class="hero__actions" style="margin-top:0.5rem;">
+            <button type="submit" class="btn btn--primary" data-submit>
+              Enviar mensaje <Icon name="arrow-right" size={18} />
+            </button>
+          </div>
+
+          <p class="form__status" data-status hidden></p>
+
+          <div class="form__success" id="form-success" role="status">
+            ¡Gracias! Recibimos tu mensaje. Te respondemos al correo indicado en menos de 24 h.
+          </div>
+        </form>
+
+        <!-- INFO -->
+        <aside style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div class="card card--feature">
+            <div class="card__icon"><Icon name="mail" /></div>
+            <h3>Correo</h3>
+            <p>
+              <a href="mailto:creatysite@gmail.com">creatysite@gmail.com</a>
+            </p>
+            <p class="form__help">Para propuestas, dudas técnicas o cotizaciones.</p>
+          </div>
+
+          <div class="card card--feature">
+            <div class="card__icon"><Icon name="phone" /></div>
+            <h3>WhatsApp</h3>
+            <p>
+              <a href="https://wa.me/573000000000" rel="noopener">
+                +57 300 000 0000
+              </a>
+            </p>
+            <p class="form__help">Lunes a sábado, 8:00 – 18:00 (GMT‑5).</p>
+          </div>
+
+          <div class="card card--feature">
+            <div class="card__icon"><Icon name="map" /></div>
+            <h3>Ubicación</h3>
+            <p>Copacabana, Antioquia<br />Colombia</p>
+            <p class="form__help">Trabajamos 100% remoto en todo Colombia y LATAM.</p>
+          </div>
+
+          <div class="card card--feature" style="background: linear-gradient(135deg, rgba(110,231,255,.1), rgba(167,139,250,.1));">
+            <div class="card__icon"><Icon name="sparkle" /></div>
+            <h3>Diagnóstico gratis</h3>
+            <p>
+              ¿No sabes por dónde empezar? Reservamos 30 minutos para revisar tu
+              caso y proponerte el camino más corto, sin compromiso.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const success = document.getElementById("form-success");
+  const status = document.querySelector<HTMLElement>("[data-status]");
+  const submit = document.querySelector<HTMLButtonElement>("[data-submit]");
+  const captchaError = document.querySelector<HTMLElement>("[data-captcha-error]");
+
+  function showError(name: string, msg?: string) {
+    const el = form?.querySelector<HTMLParagraphElement>(`[data-error-for="${name}"]`);
+    if (!el) return;
+    el.style.display = msg ? "block" : "none";
+    if (msg) el.textContent = msg;
+  }
+
+  function clearErrors() {
+    ["nombre", "email", "interes", "mensaje"].forEach((n) => showError(n));
+    if (captchaError) captchaError.textContent = "";
+  }
+
+  function setStatus(msg: string, kind: "error" | "info") {
+    if (!status) return;
+    status.hidden = false;
+    status.textContent = msg;
+    status.dataset.kind = kind;
+  }
+
+  function setBusy(busy: boolean) {
+    if (!submit) return;
+    submit.disabled = busy;
+    submit.style.opacity = busy ? "0.6" : "1";
+    submit.style.pointerEvents = busy ? "none" : "auto";
+  }
+
+  function clientValidate(v: {
+    nombre: string;
+    email: string;
+    interes: string;
+    mensaje: string;
+  }) {
+    let ok = true;
+    if (v.nombre.length < 2) { showError("nombre", "Ingresa tu nombre."); ok = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) { showError("email", "Correo inválido."); ok = false; }
+    if (!v.interes) { showError("interes", "Elige una opción."); ok = false; }
+    if (v.mensaje.length < 20) { showError("mensaje", "Cuéntamos un poco más (≥ 20 caracteres)."); ok = false; }
+    return ok;
+  }
+
+  // reCAPTCHA v3: genera un token llamando a grecaptcha.execute(). La
+  // promesa se rechaza si Google no ha terminado de cargar; en ese caso
+  // mostramos un mensaje y dejamos que el servidor decida (fail-open).
+  const RECAPTCHA_SITE_KEY = "6LcjINgtAAAAAFf587_EcXsvW3mb4BBVpXNKBn1K";
+  const RECAPTCHA_ACTION = "contact";
+
+  async function getCaptchaToken(): Promise<string> {
+    const w = window as unknown as {
+      grecaptcha?: {
+        ready: (cb: () => void) => void | Promise<void>;
+        execute: (key: string, opts: { action: string }) => Promise<string>;
+      };
+    };
+    if (!w.grecaptcha?.execute) {
+      throw new Error("reCAPTCHA no está disponible todavía");
+    }
+    await new Promise<void>((resolve) => {
+      w.grecaptcha!.ready(resolve);
+    });
+    return w.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: RECAPTCHA_ACTION });
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form) return;
+
+    success?.classList.remove("is-visible");
+    clearErrors();
+
+    const data = new FormData(form);
+    const valores = {
+      nombre: String(data.get("nombre") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      interes: String(data.get("interes") ?? "").trim(),
+      mensaje: String(data.get("mensaje") ?? "").trim(),
+    };
+    if (!clientValidate(valores)) return;
+
+    setBusy(true);
+    setStatus("Enviando…", "info");
+
+    let captchaToken = "";
+    try {
+      captchaToken = await getCaptchaToken();
+    } catch (err) {
+      // El script de Google no cargo (red, bloqueo de extension, etc.).
+      // No bloqueamos: el backend hace fail-open si no hay token.
+      console.warn("[captcha] no se pudo generar token:", (err as Error).message);
+    }
+
+    const payload = {
+      ...valores,
+      telefono: String(data.get("telefono") ?? "").trim(),
+      website: String(data.get("website") ?? ""),
+      captchaToken,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const r = await res.json().catch(() => ({}));
+      if (res.status === 429) {
+        setStatus(r.error ?? "Demasiados intentos. Espera unos minutos.", "error");
+        return;
+      }
+      if (res.status === 422) {
+        if (r.errors) Object.entries(r.errors).forEach(([k, v]) => showError(k, String(v)));
+        if (r.error && captchaError) captchaError.textContent = " — " + r.error;
+        setStatus("Revisa los campos marcados.", "error");
+        return;
+      }
+      if (!res.ok) {
+        setStatus("No pudimos enviar el mensaje. Escríbenos por WhatsApp o correo.", "error");
+        return;
+      }
+      form.reset();
+      success?.classList.add("is-visible");
+      success?.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch {
+      setStatus("Sin conexión con el servidor. Inténtalo en un momento.", "error");
+    } finally {
+      setBusy(false);
+      setStatus("", "info");
+      if (status) status.hidden = true;
+    }
+  });
+</script>

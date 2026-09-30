@@ -1,0 +1,19 @@
+{
+  "name": "Creaty Site",
+  "short_name": "Creaty Site",
+  "description": "Agencia de desarrollo web, infraestructura y ciberseguridad en Copacabana, Antioquia.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#06070d",
+  "theme_color": "#06070d",
+  "lang": "es-CO",
+  "icons": [
+    {
+      "src": "/images/creaty-logo.png",
+      "sizes": "137x48",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

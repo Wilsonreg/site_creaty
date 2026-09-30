@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+
+const valores = [
+  {
+    icon: "sparkle" as const,
+    title: "Rendimiento es UX",
+    text: "Cada segundo cuenta. Optimizamos hasta que las métricas se sienten instantáneas, no hasta que se ven bien en una captura.",
+  },
+  {
+    icon: "shield" as const,
+    title: "Seguridad por defecto",
+    text: "TLS estricto, claves SSH, WAF y backups no son extras: vienen incluidos desde el primer commit.",
+  },
+  {
+    icon: "check" as const,
+    title: "Honestidad radical",
+    text: "Presupuestos cerrados, plazos reales y cero letra pequeña. Si algo no aporta, te lo decimos antes de construirlo.",
+  },
+  {
+    icon: "bolt" as const,
+    title: "Iterar > teorizar",
+    text: "Preferimos un prototipo funcional en una semana que una propuesta de 30 páginas. Medimos, ajustamos y volvemos a medir.",
+  },
+];
+
+const equipo = [
+  {
+    name: "Wilson Ricardo E.",
+    role: "Founder & Lead Engineer",
+    bio: "Ingeniero de sistemas con 10+ años administrando infraestructura Linux, Cloudflare y aplicaciones de alto tráfico.",
+  },
+  {
+    name: "Equipo Creaty",
+    role: "Diseño, desarrollo y operaciones",
+    bio: "Un grupo pequeño y senior que toca todo el stack: front, back, infra, DevOps y seguridad.",
+  },
+];
+
+const cifras = [
+  { num: "2018", label: "Operando desde" },
+  { num: "60+", label: "Proyectos entregados" },
+  { num: "100%", label: "Renovación de clientes" },
+  { num: "0", label: "Incidentes graves reportados" },
+];
+---
+
+<BaseLayout
+  title="Quiénes somos — Creaty Site"
+  description="Equipo de ingeniería y diseño en Copacabana, Antioquia. Construimos sitios web rápidos, infraestructura y ciberseguridad para negocios en Colombia."
+>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <span class="eyebrow">Quiénes somos</span>
+        <h1>
+          Un equipo <span class="gradient-text">pequeño y senior</span>
+          para proyectos que sí importan.
+        </h1>
+        <p class="lead">
+          Creaty Site nació en Copacabana, Antioquia, con una idea simple: los pequeños y
+          medianos negocios merecen el mismo nivel de ingeniería que las grandes
+          empresas — sitios veloces, infraestructura sólida y seguridad de verdad.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/contactanos">
+            Trabaja con nosotros <Icon name="arrow-right" size={18} />
+          </a>
+          <a class="btn btn--ghost" href="/que-hacemos">Ver servicios</a>
+        </div>
+      </div>
+
+      <aside class="hero__card" aria-label="Nuestra esencia">
+        <div class="hero__card-glow" aria-hidden="true"></div>
+        <h4>Nuestra esencia</h4>
+        <p style="margin:0; color:var(--c-text);">
+          <strong>Ingeniería con propósito.</strong> Cada decisión técnica — desde el
+          framework hasta el firewall — la justificamos con un objetivo de negocio
+          medible. Nada de complejidad gratuita.
+        </p>
+        <div class="hero__row">
+          <span><span class="dot"></span>Stack moderno</span>
+          <span>Astro · Cloudflare · Linux</span>
+        </div>
+        <div class="hero__row">
+          <span><span class="dot dot--accent"></span>Idioma</span>
+          <span>Español nativo</span>
+        </div>
+        <div class="hero__row">
+          <span><span class="dot"></span>Ubicación</span>
+          <span>Copacabana · CO</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <header class="section__head">
+        <span class="eyebrow">Lo que nos mueve</span>
+        <h2>Valores que <span class="gradient-text">se notan</span> en el día a día</h2>
+      </header>
+
+      <div class="grid-2">
+        {
+          valores.map((v) => (
+            <article class="card card--feature">
+              <div class="card__icon">
+                <Icon name={v.icon} />
+              </div>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section__head section__head--center">
+        <span class="eyebrow">Equipo</span>
+        <h2>Las personas detrás de <span class="gradient-text">Creaty Site</span></h2>
+      </header>
+
+      <div class="grid-2">
+        {
+          equipo.map((m) => (
+            <article class="card card--feature" style="display:flex; gap:1rem; align-items:flex-start;">
+              <div class="testimonial__avatar" style="flex:none; width:64px; height:64px; font-size:1.1rem;">
+                {m.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .slice(0, 2)
+                  .join("")}
+              </div>
+              <div>
+                <h3 style="margin-bottom:0.1rem;">{m.name}</h3>
+                <p style="font-size:0.9rem; color:var(--c-accent); margin:0 0 0.5rem; font-weight:600;">
+                  {m.role}
+                </p>
+                <p style="margin:0;">{m.bio}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <header class="section__head section__head--center">
+        <span class="eyebrow">En cifras</span>
+        <h2>Una <span class="gradient-text">trayectoria</span> construida con clientes recurrentes</h2>
+      </header>
+
+      <div class="grid-4">
+        {
+          cifras.map((c) => (
+            <div class="card card--feature text-center">
+              <span class="stat__num" style="font-size:2.4rem;">{c.num}</span>
+              <span class="stat__label" style="font-size:0.95rem; margin-top:0.5rem; display:block;">
+                {c.label}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip">
+        <h2 class="mb-0">¿Te identificas con nuestra forma de trabajar?</h2>
+        <p class="lead" style="margin-inline:auto; margin-top:0.75rem;">
+          Si valoras la honestidad, el rendimiento y la seguridad, vamos a entendernos bien.
+        </p>
+        <div class="hero__actions" style="justify-content:center;">
+          <a class="btn btn--primary" href="/contactanos">Iniciar conversación <Icon name="arrow-right" size={18} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
