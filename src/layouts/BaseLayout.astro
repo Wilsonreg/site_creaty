@@ -59,6 +59,14 @@ const RECAPTCHA_SITE_KEY = "6LcjINgtAAAAAFf587_EcXsvW3mb4BBVpXNKBn1K";
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="dark" />
 
+    {/* Verificacion de propiedad en Google Search Console. Va en el <head>
+        de todas las paginas; Google la lee en la portada.
+        La metaetiqueta se eligio en lugar del metodo "Google Analytics"
+        porque compressHTML minifica el HTML y renombra la funcion gtag
+        (queda e(`config`,`G-...`)), patron que el verificador de Search
+        Console no reconoce. */}
+    <meta name="google-site-verification" content="L_hYg7lXcagcN-C2qSAwzqIUrOQlyuQN9yN8Tjrvw-M" />
+
     {/* Google Analytics 4. El script inline lo hashea la CSP de Astro
         (scriptDirective) para permitirlo sin abrir 'unsafe-inline'.
         NO usar is:inline: pasaria el script en crudo y Astro no lo
