@@ -59,6 +59,20 @@ const RECAPTCHA_SITE_KEY = "6LcjINgtAAAAAFf587_EcXsvW3mb4BBVpXNKBn1K";
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="dark" />
 
+    {/* Google Analytics 4. El script inline lo hashea la CSP de Astro
+        (scriptDirective) para permitirlo sin abrir 'unsafe-inline'.
+        NO usar is:inline: pasaria el script en crudo y Astro no lo
+        hashearia, con lo que la CSP lo bloquearia. */}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BWCF8832TM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args: unknown[]) {
+        window.dataLayer.push(args);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-BWCF8832TM');
+    </script>
+
     {recaptcha && (
         <script
           is:inline

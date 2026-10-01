@@ -30,12 +30,16 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         // reCAPTCHA carga imagenes desde gstatic; el icono del widget.
-        "img-src 'self' data: https://www.gstatic.com",
+        // Google Analytics envia beacons y la imagen de pixel a
+        // google-analytics.com, asi que tambien debe estar permitido en img-src.
+        "img-src 'self' data: https://www.gstatic.com https://www.google-analytics.com",
         "font-src 'self'",
         // Cloudflare inyecta su beacon (Cloudflareinsights) que envia
         // metricas a cloudflareinsights.com. Si no, el navegador bloquea
         // el fetch y la consola llena de errores.
-        "connect-src 'self' https://cloudflareinsights.com",
+        // Google Analytics reporta por fetch a google-analytics.com y, desde
+        // la UE, a region1.google-analytics.com (redireccion geografica).
+        "connect-src 'self' https://cloudflareinsights.com https://www.google-analytics.com https://region1.google-analytics.com",
         "form-action 'self'",
         "base-uri 'self'",
         "object-src 'none'",
@@ -57,6 +61,8 @@ export default defineConfig({
           "https://www.google.com/recaptcha/",
           "https://www.gstatic.com/recaptcha/",
           "https://static.cloudflareinsights.com",
+          // Google Analytics: el tag gtag.js.
+          "https://www.googletagmanager.com",
         ],
         strictDynamic: false,
       },
