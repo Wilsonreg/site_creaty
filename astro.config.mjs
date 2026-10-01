@@ -5,7 +5,11 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://site.creaty.fun',
-  trailingSlash: 'never',
+  // 'always' para que las URLs del HTML, del sitemap y las que sirve Apache
+  // coincidan. Con 'never', el canonical declaraba /blog pero Apache
+  // respondia 301 hacia /blog/, de modo que la URL canonica era ella misma
+  // un redirect y Google reportaba duplicados.
+  trailingSlash: 'always',
   compressHTML: true,
   prefetch: {
     prefetchAll: true,
