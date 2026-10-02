@@ -67,19 +67,12 @@ const RECAPTCHA_SITE_KEY = "6LcjINgtAAAAAFf587_EcXsvW3mb4BBVpXNKBn1K";
         Console no reconoce. */}
     <meta name="google-site-verification" content="L_hYg7lXcagcN-C2qSAwzqIUrOQlyuQN9yN8Tjrvw-M" />
 
-    {/* Google Analytics 4. El script inline lo hashea la CSP de Astro
-        (scriptDirective) para permitirlo sin abrir 'unsafe-inline'.
-        NO usar is:inline: pasaria el script en crudo y Astro no lo
-        hashearia, con lo que la CSP lo bloquearia. */}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BWCF8832TM"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(...args: unknown[]) {
-        window.dataLayer.push(args);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-BWCF8832TM');
-    </script>
+    {/* Google Analytics 4. La inicializacion (dataLayer + config) vive en
+        /js/gtag.js para evitar el conflicto entre CSP-por-hash y la
+        transformacion type="module" que Astro aplica a los <script> inline
+        (rompia el match de hash en runtime y bloqueaba el config). */}
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-BWCF8832TM"></script>
+    <script is:inline src="/js/gtag.js"></script>
 
     {recaptcha && (
         <script
