@@ -1,7 +1,12 @@
 # Creaty Site
 
+[![Sitio en producción](https://img.shields.io/badge/Sitio-site.creaty.fun-0A0A0A?style=for-the-badge&logo=google-chrome&logoColor=white)](https://site.creaty.fun/)
+[![Estado](https://img.shields.io/website?url=https%3A%2F%2Fsite.creaty.fun&style=for-the-badge&label=Estado)](https://site.creaty.fun/)
+
 Sitio web oficial de **Creaty Site**, agencia de desarrollo web, infraestructura y
 ciberseguridad ubicada en Copacabana, Antioquia.
+
+🌐 **Producción:** [https://site.creaty.fun](https://site.creaty.fun)
 
 Sitio estático servido por **Apache**, con una **API en Node + MySQL** detrás que
 atiende el formulario de contacto. Todo detrás de **Cloudflare** con SSL Full (strict).
